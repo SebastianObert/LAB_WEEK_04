@@ -12,6 +12,7 @@ val TABS_FIXED = listOf(
     R.string.kopikenangan_title,
 )
 
+// Adapter sekarang membutuhkan 'Resources' untuk mengambil string deskripsi
 class CafeAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val resources: Resources) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
@@ -19,13 +20,16 @@ class CafeAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, privat
         return TABS_FIXED.size
     }
 
+    // FUNGSI INI SEKARANG MENJADI "CERDAS"
     override fun createFragment(position: Int): Fragment {
+        // Tentukan konten mana yang akan ditampilkan berdasarkan posisi tab
         val content = when (position) {
-            0 -> resources.getString(R.string.starbucks_desc)
-            1 -> resources.getString(R.string.janjijiwa_desc)
-            2 -> resources.getString(R.string.kopikenangan_desc)
+            0 -> resources.getString(R.string.starbucks_desc)    // Untuk tab pertama
+            1 -> resources.getString(R.string.janjijiwa_desc)     // Untuk tab kedua
+            2 -> resources.getString(R.string.kopikenangan_desc)    // Untuk tab ketiga
             else -> ""
         }
+        // Panggil metode pabrik 'newInstance' untuk membuat fragment sambil MENGIRIMKAN KONTEN
         return CafeDetailFragment.newInstance(content)
     }
 }
