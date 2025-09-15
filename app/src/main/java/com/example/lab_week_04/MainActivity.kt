@@ -23,8 +23,19 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
         val navController = navHostFragment.navController
+
+        // Listener untuk menyembunyikan/menampilkan AppBar secara dinamis
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.cafeFragment -> {
+                    supportActionBar?.hide() // Sembunyikan di halaman Cafe
+                }
+                else -> {
+                    supportActionBar?.show() // Tampilkan di halaman lain
+                }
+            }
+        }
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
